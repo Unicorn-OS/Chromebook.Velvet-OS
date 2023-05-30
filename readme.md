@@ -1,4 +1,4 @@
-# Chromebook.Velvet-OS
+# Velvet-OS.Chromebook
 Home: https://github.com/hexdump0815/imagebuilder, https://github.com/hexdump0815/linux-mainline-on-arm-chromebooks
 
 # Building kernel
