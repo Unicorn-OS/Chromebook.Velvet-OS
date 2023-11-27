@@ -1,4 +1,4 @@
 ---
-- hosts: armbuild
+- hosts: arm_node
   roles:
   - build
