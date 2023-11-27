@@ -1,0 +1,8 @@
+---
+- debug:
+    msg: "Hello Velvet"
+
+- name: Touch a file, using symbolic modes to set the permissions (equivalent to 0644)
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/lets-build-Velvet"
+    state: touch

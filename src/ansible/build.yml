@@ -1,0 +1,4 @@
+---
+- hosts: armbuild
+  roles:
+  - build
