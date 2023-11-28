@@ -5,4 +5,10 @@
 
 # Build(kernel).example:
 - https://github.com/hexdump0815/imagebuilder/issues/49
+
+## default:
 - https://github.com/hexdump0815/linux-mainline-and-mali-generic-stable-kernel/blob/master/readme.av8
+
+## Hw: chromebook_kukui
+https://github.com/hexdump0815/imagebuilder/tree/main/systems/chromebook_kukui#kernel-build-notes
+- https://github.com/hexdump0815/linux-mainline-mediatek-mt81xx-kernel/blob/master/readme.mt8
