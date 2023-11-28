@@ -6,3 +6,6 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/lets-build-Velvet"
     state: touch
+
+
+#>the gcc compiler and other required tools for the kernel compilation should be installed. simply running /scripts/install-buildtools.sh should install everything required
