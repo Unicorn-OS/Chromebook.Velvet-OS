@@ -1,0 +1,5 @@
+- ansible.builtin.include_role:
+    name: build/pre
+
+- ansible.builtin.include_role:
+    name: build/Lenovo/IdeaPad 3/kernel
