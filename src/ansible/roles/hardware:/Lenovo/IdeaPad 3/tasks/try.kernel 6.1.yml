@@ -1,0 +1,8 @@
+---
+
+- name: installed in order to get the tool compiled well
+  ansible.builtin.apt:
+    pkg:
+    - 
+  become: true
+liblz4-tool vboot-kernel-utils build-essential flex bison gettext libiberty-dev libpci-dev libelf-dev libssl-dev libslang2-dev libperl-dev python-all-dev liblzma-dev libzstd-dev libcap-dev libnuma-dev libbabeltrace-dev systemtap-sdt-dev libdw-dev apt-utils binutils-dev git wget libunwind-dev
