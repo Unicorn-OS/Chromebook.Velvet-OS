@@ -1,7 +1,7 @@
 ---
-- name: pre
+- name: hardware
   ansible.builtin.include_tasks:
-    file: include.yml
+    file: hardware.yml
 
 - name: build
   ansible.builtin.include_tasks:

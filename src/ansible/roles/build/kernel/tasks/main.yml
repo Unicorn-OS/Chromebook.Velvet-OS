@@ -1,3 +1,4 @@
 ---
-- debug:
-    msg: "Going to Build Kernel now!"
+- name: Get( Hardware )
+  ansible.builtin.include_vars:
+    file: "{{ build_role | dirname }}/hardware:/{{ hardware }}/vars/imagebuilder.yml"

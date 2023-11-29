@@ -1,1 +1,5 @@
 hardware: "Lenovo/IdeaPad 3"
+
+build_image: false
+
+build_kernel: true

@@ -1,6 +1,7 @@
 - ansible.builtin.include_role:
-    name: imagebuilder
+    name: build/kernel
+  when: build_kernel
 
-# - name: Get(Hardware)
-#   ansible.builtin.include_role:
-#     name: hardware:/Lenovo/IdeaPad 3
+- ansible.builtin.include_role:
+    name: imagebuilder
+  when: build_image
