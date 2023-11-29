@@ -1,0 +1,1 @@
+imagebuilder_options: "{{ system }} {{ architecture }} {{ release }}"

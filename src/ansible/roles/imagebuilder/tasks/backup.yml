@@ -1,0 +1,15 @@
+- name: Create bac directory
+  ansible.builtin.file:
+    path: /compile/local/imagebuilder-diskimage/bac
+    state: directory
+    mode: '0755'
+    owner: linux
+    group: linux
+  become: true
+
+- name: move chromebook.img to bac
+  ansible.builtin.shell: "mv {{ system }}-{{ architecture }}-{{ release }}.img }} bac/"
+  args:
+    chdir: /compile/local/imagebuilder-diskimage
+    creates: "/compile/local/imagebuilder-diskimage/bac/{{ system }}-{{ architecture }}-{{ release }}.img }}"
+  become: true

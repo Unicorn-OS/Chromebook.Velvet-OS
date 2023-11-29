@@ -1,0 +1,81 @@
+---
+# Home: [using the imagebuilder framework](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md)+
+
+# Steps:
+# 1. [requirements and preparations](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md#requirements-and-preparations)
+- name: extend rootfs
+  ansible.builtin.shell: /scripts/extend-rootfs.sh
+  changed_when: false
+  become: true
+
+- name: recreate swapfile
+  ansible.builtin.shell: /scripts/recreate-swapfile.sh 2G
+  changed_when: false
+  become: true
+
+- name: install buildtools
+  ansible.builtin.shell: /scripts/install-buildtools.sh
+  args:
+    creates: /usr/bin/gettext #cat this script to find more idempotent tests
+  become: true
+
+- name: Create image build directory
+  ansible.builtin.file:
+    path: /compile/local
+    state: directory
+    owner: linux
+    group: linux
+    mode: '0755'
+  become: true
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: https://github.com/hexdump0815/imagebuilder
+    dest: /compile/local/imagebuilder
+
+- name: the next step is to run ./scripts/prepare.sh
+  ansible.builtin.shell: ./prepare.sh
+  args:
+    chdir: /compile/local/imagebuilder/scripts
+    creates: /usr/bin/cgpt
+  become: true
+
+# 2. [special considerations when using the btrfs filesystem (default in most cases)](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md#special-considerations-when-using-the-btrfs-filesystem-default-in-most-cases)
+# *ToDo: 
+
+
+# Start of Build:
+- debug:
+    msg: "{{ system }} {{ architecture }} {{ release }}"
+  when: debug
+
+# 3. [getting some files required to build the image](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md#getting-some-files-required-to-build-the-image)
+- name: get-files.sh for Specific Chromebook
+  ansible.builtin.shell: "./get-files.sh {{ imagebuilder_options }}"
+  args:
+    chdir: /compile/local/imagebuilder/scripts
+    creates: /compile/local/imagebuilder-download
+  become: true
+
+# 4. [how to use a self built kernel instead of the downloaded one](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md#how-to-use-a-self-built-kernel-instead-of-the-downloaded-one)
+
+- name: include( Build Kernel )
+  ansible.builtin.include_role:
+    name: build/kernel
+  when: build_kernel
+
+# 5. [create the rootfs cache and rootfs](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md#create-the-rootfs-cache-and-rootfs)
+- name: create-fs.sh
+  ansible.builtin.shell: "./create-fs.sh {{ imagebuilder_options }}"
+  args:
+    chdir: /compile/local/imagebuilder/scripts
+    creates: /compile/local/imagebuilder-root #"imagebuilder-{{ architecture }}-{{ release }}-cache"
+  become: true
+
+# 6. [create the actual bootable image](https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md#create-the-actual-bootable-image)
+- name: create-image.sh
+  ansible.builtin.shell: "./create-image.sh {{ imagebuilder_options }}"
+  args:
+    chdir: /compile/local/imagebuilder/scripts
+    creates: /compile/local/imagebuilder-diskimage
+  become: true

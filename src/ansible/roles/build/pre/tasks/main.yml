@@ -1,3 +1,0 @@
----
-
-#>the gcc compiler and other required tools for the kernel compilation should be installed. simply running /scripts/install-buildtools.sh should install everything required

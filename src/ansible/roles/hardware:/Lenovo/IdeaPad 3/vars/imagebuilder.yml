@@ -1,0 +1,4 @@
+# imagebuilder Options:
+system: chromebook_kukui
+architecture: aarch64
+release: bookworm

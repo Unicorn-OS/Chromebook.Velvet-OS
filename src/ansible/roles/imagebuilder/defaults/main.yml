@@ -1,0 +1,5 @@
+debug: false
+
+build_image: true
+
+build_kernel: false

@@ -1,0 +1,29 @@
+- name: Create kernel build directories
+  ansible.builtin.file:
+    path: "/compile/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+  - doc/stable
+  - source/linux-stable-exy
+  - result/stable
+  - doc/kernel-config-options
+
+- name: installed in order to get the tool compiled well
+  ansible.builtin.apt:
+    pkg:
+    - libelf-dev
+    - python3-dev
+    - libtraceevent-dev
+  become: true
+
+
+- name: Git clone shallow
+  ansible.builtin.git:
+    repo: 'https://foosball.example.org/path/to/repo.git'
+    dest: /srv/checkout
+    version: release-0.22
+    depth: 1
+  when: shallow_clone
+
+#>the gcc compiler and other required tools for the kernel compilation should be installed. simply running /scripts/install-buildtools.sh should install everything required

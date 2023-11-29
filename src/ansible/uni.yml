@@ -1,4 +1,9 @@
 ---
 - hosts: arm_node
+  vars:
+    debug: true
+    build_kernel: true
+  #   hardware: "Lenovo/IdeaPad 3"
   roles:
-  - build
+  - default
+  # - build

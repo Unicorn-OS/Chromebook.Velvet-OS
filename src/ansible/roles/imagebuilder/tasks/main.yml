@@ -1,0 +1,15 @@
+---
+- name: pre
+  ansible.builtin.include_tasks:
+    file: include.yml
+
+- name: build
+  ansible.builtin.include_tasks:
+    file: build.yml
+  when: build_image
+
+
+# Backup old image
+- name: backup
+  ansible.builtin.include_tasks:
+    file: backup.yml

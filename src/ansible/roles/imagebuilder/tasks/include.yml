@@ -1,0 +1,4 @@
+# Pre
+- name: Get Hardware vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path | dirname }}/hardware:/{{ hardware }}/vars/imagebuilder.yml"
