@@ -1,0 +1,8 @@
+# Pre kernel build tasks
+- name: installed in order to get the tool compiled well
+  ansible.builtin.apt:
+    pkg:
+    - libelf-dev
+    - python3-dev
+    - libtraceevent-dev
+  become: true

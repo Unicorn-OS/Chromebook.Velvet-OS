@@ -1,4 +1,15 @@
 ---
 - name: Get( Hardware )
   ansible.builtin.include_vars:
-    file: "{{ build_role | dirname }}/hardware:/{{ hardware }}/vars/imagebuilder.yml"
+    file: "{{ build_role | dirname }}/hardware:/{{ hardware }}/vars/{{ item }}.yml"
+  loop:
+    - image
+    - kernel
+
+- debug:
+    msg: "Kernel: {{ kernel_version }} from: {{ kernel_source }}"
+  when: debug
+
+- name: build kernel
+  ansible.builtin.include_tasks:
+    file: build kernel.yml

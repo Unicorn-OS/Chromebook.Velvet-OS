@@ -3,6 +3,7 @@
   vars:
     debug: true
     build_kernel: true
+    shallow_clone: false
   #   hardware: "Lenovo/IdeaPad 3"
   roles:
   - default

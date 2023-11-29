@@ -1,0 +1,35 @@
+---
+
+#1. [basic assumptions](https://github.com/hexdump0815/imagebuilder/blob/main/doc/building-own-kernels.md#basic-assumptions)
+- name: install buildtools
+  ansible.builtin.shell: /scripts/install-buildtools.sh
+  args:
+    creates: /usr/bin/gettext #cat this script to find more idempotent tests
+  become: true
+
+#2. [directory structure](https://github.com/hexdump0815/imagebuilder/blob/main/doc/building-own-kernels.md#directory-structure)
+##from: https://github.com/hexdump0815/linux-mainline-mediatek-mt81xx-kernel/blob/master/readme.mt8
+- name: Create directory structure
+  ansible.builtin.file:
+    path: "/compile/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+  - doc/stable-mt
+  - result/stable-mt
+  - doc/kernel-config-options
+
+#3. [checking out the kernel repo](https://github.com/hexdump0815/imagebuilder/blob/main/doc/building-own-kernels.md#checking-out-the-kernel-repo---example-odroid-u3-kernel-stb-exy-v5191)
+- name: Git clone kernel shallow
+  ansible.builtin.git:
+    repo: "{{ kernel_source }}"
+    dest: "{{ kernel_source_dir }}"
+    version: release-0.22
+    depth: "{{ clone_depth }}"
+  when: shallow_clone
+
+- name: Git clone kernel full
+  ansible.builtin.git:
+    repo: "{{ kernel_source }}"
+    dest: "{{ kernel_source_dir }}"
+  when: not shallow_clone
