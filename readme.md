@@ -1,5 +1,6 @@
 # Home:
-https://github.com/hexdump0815/imagebuilder
+Home: https://github.com/hexdump0815/imagebuilder
+- Announcements: https://github.com/hexdump0815/imagebuilder/blob/main/doc/news.md
 
 # Guide:
 - https://github.com/hexdump0815/imagebuilder/blob/main/doc/using-the-imagebuilder-framework.md
